@@ -1,16 +1,28 @@
 {
   "name": "tienda-colchones-backend",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Prueba Ginzo",
+  "author": "David Juaneda ayensa <juayen@hotmail.com>",
+  "main": "app.js",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express"
+  ],
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "^4.16.4",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "mongoose": "^5.4.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }
