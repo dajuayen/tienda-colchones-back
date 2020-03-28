@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+
+    nodejs:
+        build: 
+            context:  .
+            dockerfile: Dockerfile
+        image: nodejs
+        container_name: nodejs-back
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MONGO_USERNAME=$MONGO_USERNAME
+            - MONGO_PASSWORD=$MONGO_PASSWORD
+            - MONGO_HOSTNAME=db
+            - MONGO_PORT=$MONGO_PORT
+            - MONGO_DB=$MONGO_DB
+        #   - NODE_ENV=production
+        ports:
+            - 80:8080
+        volumes:
+            - .:/home/node/back
+            - node_modules:/home/node/back/node_modules
+        networks: 
+            - back-network
+        # command: npm run start
+        command: /home/node/back/node_modules/.bin/nodemon bin/www
+        
+    db:
+        image: mongo:4.1.8-xenial
+        container_name: mongoDB
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+            - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodata:/data/db
+        networks:
+            - back-network
+
+    db-admin:
+        image: mongo-express
+        container_name: mongo-express-back
+        ports:
+            - 8081:8081
+        env_file: 
+            - .env
+        environment:
+            - ME_CONFIG_MONGODB_ADMINUSERNAME=$MONGO_USERNAME
+            - ME_CONFIG_MONGODB_ADMINPASSWORD=$MONGO_PASSWORD
+            - ME_CONFIG_MONGODB_SERVER=db
+            - ME_CONFIG_MONGODB_AUTH_DATABASE=$MONGO_DB
+            - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+        links:
+            - db
+        networks:
+            - back-network
+
+
+networks: 
+    back-network:
+      driver: bridge
+
+volumes: 
+    mongodata:
+    node_modules:
