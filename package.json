@@ -1,6 +1,6 @@
 {
   "name": "tienda-colchones-backend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Prueba Ginzo",
   "author": "David Juaneda ayensa <juayen@hotmail.com>",
   "main": "app.js",

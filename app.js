@@ -7,6 +7,7 @@ const db = require('./db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var mattressRouter = require('./routes/mattress.routes');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ROUTES
 app.use('/api/shop/', indexRouter);
 app.use('/api/shop/users', usersRouter);
+app.use('/api/shop/mattress', mattressRouter);
 
 
 // catch 404 and forward to error handler
